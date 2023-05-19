@@ -14,6 +14,13 @@ export const DEFAULT_EXCLUDED_PATHS = [
 ];
 
 /**
+ * TODO: 1. 增加元数据拉取 metrics
+ * TODO: 2. 增加 tgz 拉取 metrics
+ * TODO: 3. 增加 publish 包 metrics
+ * TODO: 4. 包名使用 micromatch 匹配
+ */
+
+/**
  * A Verdaccio middleware plugin implementation. The following functionality is added if enabled in configuration:
  *   1. A single new metrics endpoint is exposed at a configurable path.
  *   2. Metrics are collected related to install/download of package tarballs.
@@ -54,8 +61,8 @@ export default class VerdaccioMiddlewarePlugin implements IPluginMiddleware<Metr
    */
   public register_middlewares(
     app: Application,
-    auth: IBasicAuth<MetricsConfig>,
-    storage: IStorageManager<MetricsConfig>,
+    _auth: IBasicAuth<MetricsConfig>,
+    _storage: IStorageManager<MetricsConfig>,
   ): void {
     const { defaultMetrics, requestMetrics, packageMetrics } = this.metricsConfig;
     if (this.defaultMetricsEnabled || this.requestMetricsEnabled || this.packageMetricsEnabled) {
@@ -88,7 +95,7 @@ export default class VerdaccioMiddlewarePlugin implements IPluginMiddleware<Metr
    * @param {Response} res - The Express response object.
    * @returns {Promise<void>} - A promise that resolves to undefined since the function is async.
    */
-  public async getMetrics(req: Request, res: Response): Promise<void> {
+  public async getMetrics(_req: Request, res: Response): Promise<void> {
     this.logger.debug(`metrics: [getMetrics] providing metrics response`);
     const metricsResponse = this.metrics ? await this.metrics.getMetricsResponse() : '';
     res.setHeader('Content-Type', CONTENT_TYPE_METRICS);

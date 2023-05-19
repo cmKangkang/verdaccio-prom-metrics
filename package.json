@@ -1,5 +1,5 @@
 {
-  "name": "@xlts.dev/verdaccio-prometheus-middleware",
+  "name": "verdaccio-prom-metrics",
   "version": "2.0.2",
   "description": "Verdaccio middleware plugin used to collect prometheus compatible metrics",
   "keywords": [
@@ -33,11 +33,9 @@
   "scripts": {
     "prepare": "husky install",
     "build": "tsc",
-    "test": "npm run lint && npm run unitTest",
-    "unitTest": "jest",
+    "test": "jest",
     "lint": "eslint '**/*.{js,ts}'",
     "prettier": "prettier --write '**/*.{js,ts,json,md}'",
-    "changelog": "conventional-changelog ---preset angular ---infile CHANGELOG.md --same-file",
     "release": "HUSKY=0 standard-version --no-verify",
     "prepublishOnly": "npm run build"
   },
